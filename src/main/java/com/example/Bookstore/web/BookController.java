@@ -45,9 +45,10 @@ public class BookController {
 	
 	
 	//Muokkaa kirjaa
-	@RequestMapping(value="/editBook/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/editBook/{id}")
 	public String editBook(@PathVariable("id") long id, Model model) {
 		model.addAttribute("book", BookRepo.findById(id));
+		model.addAttribute("categories", CatRepo.findAll());
 		return "editBook";
 	}
 	

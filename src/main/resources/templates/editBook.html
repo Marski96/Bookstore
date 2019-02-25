@@ -10,8 +10,9 @@
 		<h1>Edit Book</h1>
 
 		<div>
-			<form th:object="${book}" th:action="@{save}" action="#" method="post">
-			<input type="hidden" id="id" th:field=*{id} class="form-control"/>	
+			<form th:object="${book}" th:action="@{../save}" action="#" method="post">
+				
+				<input type="hidden" th:field="*{id}" class="form-control"/>
 				
 				<label for="author">Author</label>
 				<input type="text" id="author" th:field="*{author}"/>

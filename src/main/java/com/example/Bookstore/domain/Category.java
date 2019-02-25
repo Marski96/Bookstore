@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long catID;
+	private long catID;
 	private String catName;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
@@ -30,7 +30,7 @@ public class Category {
 		return catID;
 	}
 
-	public void setCatID(Long catID) {
+	public void setCatID(long catID) {
 		this.catID = catID;
 	}
 

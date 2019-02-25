@@ -12,6 +12,8 @@
 		<div>
 			<form th:object="${book}" th:action="@{save}" action="#" method="post">
 				
+				<input type="hidden" th:field="*{id}" class="form-control"/>
+				
 				<label for="author">Author</label>
 				<input type="text" id="author" th:field="*{author}"/>
 				
@@ -31,7 +33,6 @@
 				<select id="catList" th:field="*{category}" class="form-control">
 				<option th:each="category: ${categories}" th:value="${category.catID}" th:text="${category.catName}"></option>	
 			</select>
-				
 				
 				<input type="submit" value="Save"></input>
 				
