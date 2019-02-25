@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
+
 <title>Bookstore</title>
 </head>
 	<body>
@@ -9,7 +10,7 @@
 		<h1>Edit Book</h1>
 
 		<div>
-			<form th:object="${book}" th:action="@{../save}" action="#" method="post">
+			<form th:object="${book}" th:action="@{save}" action="#" method="post">
 			<input type="hidden" id="id" th:field=*{id} class="form-control"/>	
 				
 				<label for="author">Author</label>
@@ -26,6 +27,11 @@
 				
 				<label for="price">Price</label>
 				<input type="text" id="price" th:field="*{price}"/>
+				
+				<label for="catList">Category</label>
+				<select id="catList" th:field="*{category}" class="form-control">
+				<option th:each="category: ${categories}" th:value="${category.catID}" th:text="${category.catName}"></option>	
+			</select>
 				
 				<input type="submit" value="Save"></input>
 				

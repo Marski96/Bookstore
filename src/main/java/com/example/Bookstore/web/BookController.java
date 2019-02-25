@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
+import com.example.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	@Autowired
-	private BookRepository repository;
+	private BookRepository BookRepo;
+	
+	@Autowired
+	private CategoryRepository CatRepo;
 	
 	
 	//Hakee kirjat
 	@RequestMapping(value="/booklist")
 	public String books(Model model) {
-		model.addAttribute("books", repository.findAll());	
+		model.addAttribute("books", BookRepo.findAll());	
 		return "booklist";
 	}
 	
@@ -28,13 +32,14 @@ public class BookController {
 	@RequestMapping(value="/create")
 	public String createBook(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", CatRepo.findAll());
 		return "save";
 	}
 	
 	//Tallenna kirja listaan
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String saveBook(Book book) {
-		repository.save(book);
+		BookRepo.save(book);
 		return "redirect:booklist";
 	}
 	
@@ -42,14 +47,14 @@ public class BookController {
 	//Muokkaa kirjaa
 	@RequestMapping(value="/editBook/{id}", method=RequestMethod.GET)
 	public String editBook(@PathVariable("id") long id, Model model) {
-		model.addAttribute("book", repository.findById(id));
+		model.addAttribute("book", BookRepo.findById(id));
 		return "editBook";
 	}
 	
 	//Poista kirja
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") long id, Model model) {
-		repository.deleteById(id);
+		BookRepo.deleteById(id);
 		return "redirect:/booklist";
 	}
 	
