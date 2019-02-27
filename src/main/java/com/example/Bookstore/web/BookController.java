@@ -1,11 +1,16 @@
 package com.example.Bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
@@ -20,7 +25,7 @@ public class BookController {
 	private CategoryRepository CatRepo;
 	
 	
-	//Hakee kirjat
+	//Show books
 	@RequestMapping(value="/booklist")
 	public String books(Model model) {
 		model.addAttribute("books", BookRepo.findAll());	
@@ -28,7 +33,7 @@ public class BookController {
 	}
 	
 	
-	//Lisää kirja
+	//Create a new book
 	@RequestMapping(value="/create")
 	public String createBook(Model model) {
 		model.addAttribute("book", new Book());
@@ -36,7 +41,7 @@ public class BookController {
 		return "save";
 	}
 	
-	//Tallenna kirja listaan
+	//Save a book
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String saveBook(Book book) {
 		BookRepo.save(book);
@@ -44,7 +49,7 @@ public class BookController {
 	}
 	
 	
-	//Muokkaa kirjaa
+	//Edit book
 	@RequestMapping(value="/editBook/{id}")
 	public String editBook(@PathVariable("id") long id, Model model) {
 		model.addAttribute("book", BookRepo.findById(id));
@@ -52,11 +57,23 @@ public class BookController {
 		return "editBook";
 	}
 	
-	//Poista kirja
+	//Delete book
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") long id, Model model) {
 		BookRepo.deleteById(id);
 		return "redirect:/booklist";
+	}
+	
+	//REST all books JSON
+	@RequestMapping(value="/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
+		return (List<Book>) BookRepo.findAll();
+	}
+	
+	//REST get book with id
+	@RequestMapping(value="/books/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") long id) {
+		return BookRepo.findById(id);
 	}
 	
 }
