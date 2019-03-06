@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
 <head>
 
 <link type="text/css"rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
@@ -11,9 +13,10 @@
 		
 		<h1>Jani's Bookstore</h1>
 
-		<p>Welcome to my Bookstore!</p>
+		<p th:inline="text">Welcome to my bookstore [[${#httpServletRequest.remoteUser}]]!</p>
 		
 		<a href="/booklist" class="btn btn-success">Store</a>
+		<a href="/logout" class="btn btn-danger">Logout</a>
 
 	</body>
 </html>
