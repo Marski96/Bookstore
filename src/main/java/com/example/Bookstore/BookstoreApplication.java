@@ -45,7 +45,6 @@ public class BookstoreApplication {
 			
 			User user1 = new User("user", "$2a$04$A/jc91OsdEE9RnM41cH1vuoUmWKB37rvOuKPTUddBCum8Flned5ky", "user@gmail.com", "USER");
 			User user2 = new User("admin", "$2a$04$kUXY339be87ped9SpX8i3.dnlA1VwmUdKNQ5hy9zhdJ1YHN2QLjx.", "admin@gmail.com", "ADMIN");
-		
 			UserRepo.save(user1);
 			UserRepo.save(user2);
 			
