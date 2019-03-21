@@ -18,7 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @Autowired
 private UserDetailServiceImpl userDetailsService;
 
+@Override
 protected void configure(HttpSecurity http) throws Exception {
+	
+	http.requiresChannel()
+    .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+    .requiresSecure();
 	
 	http
 		.authorizeRequests().antMatchers("/css/**").permitAll()
